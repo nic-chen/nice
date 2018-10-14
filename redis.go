@@ -7,36 +7,47 @@ import (
 )
 
 // redis is RDS struct
-type redis struct {
+type Redis struct {
+	host string
+	password string
+	database int
+	idle int
+	active int
 	pool *redislib.Pool
 }
 
-func NewRedis(host, password string, database, maxOpenConns, maxIdleConns int) *redis {
-	r := &redis{};
-	r.Open(host, password, database, maxOpenConns, maxIdleConns)
+func NewRedis(host, password string, database, MaxActive, maxIdleConns int) *Redis {
+	r := &Redis{
+		host: host,
+		password: password,
+		database: database,
+		idle: maxIdleConns,
+		active: MaxActive,
+	};
+	r.Open()
 	if _, err := r.Do("PING"); err != nil {
 		log.Panicln("Init redis pool failed.", err.Error())
 	}
 	return r
 }
 
-func (p *redis) Open(server, password string, database, maxOpenConns, maxIdleConns int) {
-	p.pool = &redislib.Pool{
-		MaxActive:   maxOpenConns, // max number of connections
-		MaxIdle:     maxIdleConns,
+func (r *Redis) Open(){
+	r.pool = &redislib.Pool{
+		MaxActive:   r.active, // max number of connections
+		MaxIdle:     r.idle,
 		IdleTimeout: 120 * time.Second,
 		Dial: func() (redislib.Conn, error) {
-			c, err := redislib.Dial("tcp", server)
+			c, err := redislib.Dial("tcp", r.host)
 			if err != nil {
 				return nil, err
 			}
-			if len(password) > 0 {
-				if _, err := c.Do("AUTH", password); err != nil {
+			if len(r.password) > 0 {
+				if _, err := c.Do("AUTH", r.password); err != nil {
 					c.Close()
 					return nil, err
 				}
 			}
-			if _, err := c.Do("select", database); err != nil {
+			if _, err := c.Do("select", r.database); err != nil {
 				c.Close()
 				return nil, err
 			}
@@ -46,18 +57,18 @@ func (p *redis) Open(server, password string, database, maxOpenConns, maxIdleCon
 			_, err := c.Do("PING")
 			return err
 		},
-	};	
+	};
 }
 
 // Close pool
-func (p *redis) Close() error {
-	err := p.pool.Close()
+func (r *Redis) Close() error {
+	err := r.pool.Close()
 	return err
 }
 
 // Do commands
-func (p *redis) Do(command string, args ...interface{}) (interface{}, error) {
-	conn := p.pool.Get()
+func (r *Redis) Do(command string, args ...interface{}) (interface{}, error) {
+	conn := r.pool.Get()
 	defer conn.Close()
 	return conn.Do(command, args...)
 }
