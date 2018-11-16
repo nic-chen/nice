@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package prototest;
+
+service Say {
+    rpc Hello(Request) returns (Response) {}
+    rpc HelloPanic(Request) returns (Response) {}
+    rpc HelloError(Request) returns (Response) {}
+}
+
+message Request {
+    string name = 1;
+}
+
+message Response {
+    string msg = 1;
+}
