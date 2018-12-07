@@ -9,7 +9,7 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
 	"github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/nic-chen/nice/micro/registry"
+	//"github.com/nic-chen/nice/micro/registry"
 	"github.com/nic-chen/nice/micro/tracing"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -104,11 +104,9 @@ func (t Server) Run(rpcSrv *grpc.Server, listen string) error {
 	}
 
 	if t.Option.register != nil {
-		node := &registry.Node{Id: t.Name, Address: t.Option.RegistryListen}
-		if err = t.Option.register.Register(t.Option.registryServiceName, node); err != nil {
+		if err = t.Option.register.Register(); err != nil {
 			return err
 		}
-		defer t.Option.register.Unregister(t.Option.registryServiceName, node)
 	}
 
 	log.Printf("%s tcp server will be ready for listening at:%s", t.Name, listen)
