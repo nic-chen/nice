@@ -25,7 +25,6 @@
     * [路由语法](https://github.com/nic-chen/nice/tree/master/doc/router.md#路由语法)
         * [静态路由](https://github.com/nic-chen/nice/tree/master/doc/router.md#静态路由)
         * [参数路由](https://github.com/nic-chen/nice/tree/master/doc/router.md#参数路由)
-        * [正则路由](https://github.com/nic-chen/nice/tree/master/doc/router.md#正则路由)
     * [路由选项](https://github.com/nic-chen/nice/tree/master/doc/router.md#路由选项)
     * [组路由](https://github.com/nic-chen/nice/tree/master/doc/router.md#组路由)
     * [链式处理](https://github.com/nic-chen/nice/tree/master/doc/router.md#链式处理)

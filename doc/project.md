@@ -34,7 +34,7 @@ project
 | services                    | 服务目录      | 应用的主要逻辑都放这里 |
 | README.md                   | 应用说明      | --     |
 
-完整结构，参见示例 [blog](https://github.com/nic-chen/nice-example/tree/master/blog)
+完整结构，参见示例 [example](https://github.com/nic-chen/nice-example)
 你也可以按自己需求进行目录的调整
 
 ## 控制器
@@ -99,7 +99,7 @@ func (member) Info(c *nice.Context) {
 
 ## 数据操作
 
-Nice本身不提供数据模型的处理，在 [api](http://github.com/nic-chen/nice-example/tree/master/dao) 示例中提供了mysql和redis操作参考。
+Nice本身不提供数据模型的处理，在 [dao](http://github.com/nic-chen/nice-example/tree/master/dao) 示例中提供了mysql和redis操作参考。
 
 在dao/base.go中定义了最简单的数据操作，fetch（根据主键获取数据，先取缓存，缓存不存在再取数据库并写缓存）、insert（插入一条记录）、update（通过主键更新一条记录并删除缓存）、delete（通过主键删除一条记录并删除缓存）。
 
