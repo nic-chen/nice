@@ -5,17 +5,17 @@
 
 ## 特性
 
-* 支持静态路由、参数路由、组路由（前缀路由/命名空间）和路由命名
-* 路由支持链式操作
-* 路由支持文件/目录服务
-* 中间件支持链式操作
-* 支持依赖注入*
+* 路由
+* 中间件
+* 依赖注入
+* 日志处理
+* 数据库操作
+* 缓存操作
 * 统一的HTTP错误处理
-* 统一的日志处理
-
 * 微服务
     * 服务发现
     * 分布式追踪
+……
 
 ## 文档目录
 
@@ -25,7 +25,6 @@
     * [路由语法](https://github.com/nic-chen/nice/tree/master/doc/router.md#路由语法)
         * [静态路由](https://github.com/nic-chen/nice/tree/master/doc/router.md#静态路由)
         * [参数路由](https://github.com/nic-chen/nice/tree/master/doc/router.md#参数路由)
-        * [正则路由](https://github.com/nic-chen/nice/tree/master/doc/router.md#正则路由)
     * [路由选项](https://github.com/nic-chen/nice/tree/master/doc/router.md#路由选项)
     * [组路由](https://github.com/nic-chen/nice/tree/master/doc/router.md#组路由)
     * [链式处理](https://github.com/nic-chen/nice/tree/master/doc/router.md#链式处理)

@@ -5,17 +5,17 @@
 
 ## 特性
 
-* 支持静态路由、参数路由、组路由（前缀路由/命名空间）和路由命名
-* 路由支持链式操作
-* 路由支持文件/目录服务
-* 中间件支持链式操作
-* 支持依赖注入*
+* 路由
+* 中间件
+* 依赖注入
+* 日志处理
+* 数据库操作
+* 缓存操作
 * 统一的HTTP错误处理
-* 统一的日志处理
-
 * 微服务
     * 服务发现
     * 分布式追踪
+……
 
 ## 文档目录
 
@@ -115,21 +115,21 @@ http://127.0.0.1:8080/
 package main
 
 import (
-	"github.com/nic-chen/nice/middleware"
-	"github.com/nic-chen/nice/middleware"
-	"github.com/nic-chen/nice"
+    "github.com/nic-chen/nice/middleware"
+    "github.com/nic-chen/nice/middleware"
+    "github.com/nic-chen/nice"
 )
 
 func main() {
-	app := nice.Instance("")
-	app.Use(middleware.Recovery())
-	app.Use(middleware.Logger())
+    app := nice.Instance("")
+    app.Use(middleware.Recovery())
+    app.Use(middleware.Logger())
 
-	app.Get("/", func(c *nice.Context) {
-		c.String(200, "Hello, World")
-	})
+    app.Get("/", func(c *nice.Context) {
+        c.String(200, "Hello, World")
+    })
 
-	app.Run(":8080")
+    app.Run(":8080")
 }
 ```
 
