@@ -15,11 +15,11 @@
 
 ## 路由管理
 
-nice 基于 http resetfull 模式设计了路由管理器，具体见 [路由](https://github.com/nic-chen/nice/doc/router.md) 一节。
+nice 基于 http resetfull 模式设计了路由管理器，具体见 [路由](https://github.com/nic-chen/nice/tree/master/doc/router.md) 一节。
 
 ## 中间件
 
-nice 支持通过 中间件 机制，注入请求过程，实现类似插件的功能，具体见 [中间件](https://github.com/nic-chen/nice/doc/middleware.md) 一节。
+nice 支持通过 中间件 机制，注入请求过程，实现类似插件的功能，具体见 [中间件](https://github.com/nic-chen/nice/tree/master/doc/middleware.md) 一节。
 
 ## 依赖注入
 
@@ -27,7 +27,7 @@ nice 支持通过 中间件 机制，注入请求过程，实现类似插件的�
 
 nice组件的更换，见 [更换内置引擎](#更换内置引擎) 一节。
 
-DI的具体使用，见 [依赖注入](https://github.com/nic-chen/nice/doc/di.md) 一节。
+DI的具体使用，见 [依赖注入](https://github.com/nic-chen/nice/tree/master/doc/di.md) 一节。
 
 ## 运行应用
 

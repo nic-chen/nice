@@ -142,7 +142,7 @@ c.SetCookie("mykey", "myvalue", 3600, "/", ".vodjk.com", true, true)
 
 然后可以利用这些结构进行文件大小检测，文件类型检测，文件存储等。
 
-举个栗子：
+举个例子：
 
 ```
 func Upload(c *nice.Context) {

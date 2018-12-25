@@ -104,7 +104,7 @@ curl http://127.0.0.1:8080/user/101/project/201
 func (b *Nice) SetAutoHead(v bool)
 ```
 
-我记得搜索引擎很喜欢用HEAD方法来检查一个网页是否能正常访问。但我们一般又不会单独写一个HEAD的处理方法，一般行为是GET返回的数据不要内容。
+搜索引擎很喜欢用HEAD方法来检查一个网页是否能正常访问。但我们一般又不会单独写一个HEAD的处理方法，一般行为是GET返回的数据不要内容。
 
 使用 `app.SetAutoHead(true)` 将在设置 `GET` 方法时，自动添加 `HEAD` 路由，绑定和GET一样的处理。
 
@@ -189,7 +189,7 @@ import (
 func main() {
 	app := nice.Default()
 	app.Get("/", func(c *nice.Context) {
-		c.String(200, "Hello, 世界")
+		c.String(200, "Hello, World")
 	})
 	app.Post("/", func(c *nice.Context) {
 		c.String(200, c.Req.Method)
@@ -222,7 +222,7 @@ func (b *Nice) URLFor(name string, args ...interface{}) string
 
 就是给一个URL起个名字，然后在程序中可以通过 `URLFor`方法来生成这个符合这个路由的URL路径。
 
-举个栗子：
+举个例子：
 
 ```
 app := nice.Instance("")
@@ -281,7 +281,7 @@ func (b *Nice) SetNotFound(h HandlerFunc)
 nice默认返回 `Not Found` 和 `404` 错误头，你也可以通过 `app.SetNotFound`来自定义错误处理，该方法接受一个 HandlerFunc类型。
 
 
-举个栗子：
+举个例子：
 
 ```
 app := nice.Instance("")

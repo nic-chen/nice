@@ -15,7 +15,7 @@
 * 微服务
     * 服务发现
     * 分布式追踪
-……
+* ……
 
 ## 文档目录
 
@@ -115,21 +115,21 @@ http://127.0.0.1:8080/
 package main
 
 import (
-	"github.com/nic-chen/nice/middleware"
-	"github.com/nic-chen/nice/middleware"
-	"github.com/nic-chen/nice"
+    "github.com/nic-chen/nice/middleware"
+    "github.com/nic-chen/nice/middleware"
+    "github.com/nic-chen/nice"
 )
 
 func main() {
-	app := nice.Instance("")
-	app.Use(middleware.Recovery())
-	app.Use(middleware.Logger())
+    app := nice.Instance("")
+    app.Use(middleware.Recovery())
+    app.Use(middleware.Logger())
 
-	app.Get("/", func(c *nice.Context) {
-		c.String(200, "Hello, World")
-	})
+    app.Get("/", func(c *nice.Context) {
+        c.String(200, "Hello, World")
+    })
 
-	app.Run(":8080")
+    app.Run(":8080")
 }
 ```
 
