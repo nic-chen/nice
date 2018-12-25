@@ -404,6 +404,6 @@ func init() {
 	appInstances = make(map[string]*Nice)
 	Env = os.Getenv("NICE_ENV")
 	if Env == "" {
-		Env = DEV
+		Env = PROD
 	}
 }
