@@ -137,3 +137,4 @@ https://github.com/nic-chen/nice-example
     * [服务](https://github.com/nic-chen/nice/tree/master/doc/project.md#服务)
     * [配置](https://github.com/nic-chen/nice/tree/master/doc/project.md#配置)
 
+* [微服务](https://github.com/nic-chen/nice/tree/master/doc/micro.md)
