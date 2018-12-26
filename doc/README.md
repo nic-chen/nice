@@ -84,6 +84,9 @@ func main() {
 
 https://github.com/nic-chen/nice-example
 
+我们构建了一个docker环境，你可以下载并直接运行示例：
+https://github.com/nic-chen/nice-example-docker
+
 
 ## 文档目录
 
