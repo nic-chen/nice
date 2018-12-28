@@ -1,6 +1,13 @@
 package micro
 
 import (
+	"log"
+	"net"
+	"net/http"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
+	
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/grpc-ecosystem/go-grpc-prometheus"
@@ -8,11 +15,6 @@ import (
 	//"github.com/nic-chen/nice/micro/registry"
 	//"github.com/nic-chen/nice/micro/tracing"
 	"github.com/grpc-ecosystem/grpc-opentracing/go/otgrpc"
-
-	"google.golang.org/grpc"
-	"log"
-	"net"
-	"net/http"
 )
 
 type Server struct {
@@ -77,6 +79,8 @@ func (t Server) Run(rpcSrv *grpc.Server, listen string) error {
 		if err = t.Option.register.Register(); err != nil {
 			return err
 		}
+	} else {
+		reflection.Register(rpcSrv)
 	}
 
 	log.Printf("%s tcp server will be ready for listening at:%s", t.Name, listen)
