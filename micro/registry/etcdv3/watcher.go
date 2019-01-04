@@ -4,15 +4,15 @@ import (
 	"context"
 	"fmt"
 
-	etcdv3 "go.etcd.io/etcd/clientv3"
-	"go.etcd.io/etcd/mvcc/mvccpb"
+	"go.etcd.io/etcd/clientv3"
+	"github.com/coreos/etcd/mvcc/mvccpb" // "go.etcd.io/etcd/mvcc/mvccpb" 用这个会出现miss match
 	"google.golang.org/grpc/naming"
 )
 
 // watcher is the implementaion of grpc.naming.Watcher
 type watcher struct {
 	re            *Resolver // re: Etcd Resolver
-	client        etcdv3.Client
+	client        clientv3.Client
 	isInitialized bool
 }
 
@@ -28,7 +28,7 @@ func (w *watcher) Next() ([]*naming.Update, error) {
 	// check if is initialized
 	if !w.isInitialized {
 		// query addresses from etcd
-		resp, err := w.client.Get(context.Background(), prefix, etcdv3.WithPrefix())
+		resp, err := w.client.Get(context.Background(), prefix, clientv3.WithPrefix())
 		w.isInitialized = true
 		if err == nil {
 			addrs := extractAddrs(resp)
@@ -45,7 +45,7 @@ func (w *watcher) Next() ([]*naming.Update, error) {
 
 	// generate etcd Watcher
 	ctx, cancel := context.WithCancel(context.Background())
-	rch := w.client.Watch(ctx, prefix, etcdv3.WithPrefix(), etcdv3.WithPrevKV())
+	rch := w.client.Watch(ctx, prefix, clientv3.WithPrefix(), clientv3.WithPrevKV())
 	defer cancel()
 	for wresp := range rch {
 		for _, ev := range wresp.Events {
@@ -60,7 +60,7 @@ func (w *watcher) Next() ([]*naming.Update, error) {
 	return nil, nil
 }
 
-func extractAddrs(resp *etcdv3.GetResponse) []string {
+func extractAddrs(resp *clientv3.GetResponse) []string {
 	addrs := []string{}
 
 	if resp == nil || resp.Kvs == nil {
