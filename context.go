@@ -703,3 +703,14 @@ func (c *Context) Nice() *Nice {
 func (c *Context) DI(name string) interface{} {
 	return c.nice.GetDI(name)
 }
+
+// Set uid in context
+func (c *Context) SetUid(v int) {
+	c.uid = v
+}
+
+// Get uid from context
+func (c *Context) GetUid() int {
+	return c.uid
+}
+
