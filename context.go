@@ -63,7 +63,9 @@ type Context struct {
 	pValues    []string      // route params values
 	handlers   []HandlerFunc // middleware handler and route match handler
 	hi         int           // handlers execute position
+	uid        int            //login member id
 }
+
 
 // NewContext create a http context
 func NewContext(w http.ResponseWriter, r *http.Request, n *Nice) *Context {
@@ -88,6 +90,7 @@ func (c *Context) Reset(w http.ResponseWriter, r *http.Request) {
 	c.Resp.reset(w)
 	c.Req = r
 	c.hi = 0
+	c.uid = 0
 	c.handlers = c.handlers[:len(c.nice.middleware)]
 	c.routeName = ""
 	c.pNames = c.pNames[:0]
