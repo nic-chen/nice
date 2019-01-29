@@ -166,6 +166,21 @@ func (c *Context) ParamInt32(name string) int32 {
 	return int32(c.ParamInt64(name))
 }
 
+// ParamUint32 get route param from context and format to uint32
+func (c *Context) ParamUint32(name string) uint32 {
+	return uint32(c.ParamInt64(name))
+}
+
+// ParamUint16 get route param from context and format to uint16
+func (c *Context) ParamUint16(name string) uint16 {
+	return uint16(c.ParamInt64(name))
+}
+
+// ParamUint8 get route param from context and format to uint8
+func (c *Context) ParamUint8(name string) uint8 {
+	return uint8(c.ParamInt64(name))
+}
+
 // ParamInt64 get route param from context and format to int64
 func (c *Context) ParamInt64(name string) int64 {
 	v, _ := strconv.ParseInt(c.Param(name), 10, 64)
@@ -228,6 +243,21 @@ func (c *Context) QueryInt64(name string) int64 {
 	c.ParseForm(0)
 	v, _ := strconv.ParseInt(c.Req.Form.Get(name), 10, 64)
 	return v
+}
+
+// QueryUint32 get a param from http.Request.Form and format to uint32
+func (c *Context) QueryUint32(name string) uint32 {
+	return uint32(c.QueryInt64(name))
+}
+
+// QueryUint16 get a param from http.Request.Form and format to uint16
+func (c *Context) QueryUint16(name string) uint16 {
+	return uint16(c.QueryInt64(name))
+}
+
+// QueryUint8 get a param from http.Request.Form and format to uint8
+func (c *Context) QueryUint8(name string) uint8 {
+	return uint8(c.QueryInt64(name))
 }
 
 // QueryFloat get a param from http.Request.Form and format to float64
