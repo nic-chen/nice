@@ -63,7 +63,7 @@ type Context struct {
 	pValues    []string      // route params values
 	handlers   []HandlerFunc // middleware handler and route match handler
 	hi         int           // handlers execute position
-	uid        int           //login member id
+	uid        uint32        //login member id
 }
 
 // NewContext create a http context
