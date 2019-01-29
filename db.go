@@ -8,5 +8,6 @@ type Db interface {
 	Open() error
 	Close() error
 	Query(sqlStr string, args ...interface{}) ([]map[string]interface{}, error)
+	QueryRow(sqlStr string, args ...interface{}) *sql.Row
 	Exec(sqlStr string, args ...interface{}) (sql.Result, error)
 }

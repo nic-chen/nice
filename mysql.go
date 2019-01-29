@@ -1,12 +1,12 @@
 package nice
 
 import (
-	"os"
 	"database/sql"
 	"errors"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
+	"os"
 	"strconv"
 )
 
@@ -24,11 +24,11 @@ type Mysql struct {
 func NewMysql(host, database, user, password, charset string, maxOpenConns, maxIdleConns int) *Mysql {
 	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&autocommit=true", user, password, host, database, charset)
 	p := &Mysql{
-		DriverName: "mysql",
+		DriverName:     "mysql",
 		DataSourceName: dataSourceName,
-		MaxOpenConns: maxOpenConns,
-		MaxIdleConns: maxIdleConns,
-		Loger: log.New(os.Stderr, "[Nice] ", log.LstdFlags),
+		MaxOpenConns:   maxOpenConns,
+		MaxIdleConns:   maxIdleConns,
+		Loger:          log.New(os.Stderr, "[Nice] ", log.LstdFlags),
 	}
 	if err := p.Open(); err != nil {
 		p.Loger.Panicln("Init mysql pool failed.", err.Error())
@@ -101,9 +101,14 @@ func (p *Mysql) Query(sqlStr string, args ...interface{}) ([]map[string]interfac
 	return rowsMap, nil
 }
 
+// QueryRow via pool
+func (p *Mysql) QueryRow(sqlStr string, args ...interface{}) *sql.Row {
+	return p.DB.QueryRow(sqlStr, args...)
+}
+
 func (p *Mysql) Exec(sqlStr string, args ...interface{}) (sql.Result, error) {
-	res,err := p.DB.Exec(sqlStr, args...)
-	if err!=nil {
+	res, err := p.DB.Exec(sqlStr, args...)
+	if err != nil {
 		p.Loger.Printf("exec err: %v", err)
 	}
 	return res, err
@@ -212,8 +217,8 @@ func (t *SQLConnTransaction) Query(queryStr string, args ...interface{}) ([]map[
 }
 
 func (t *SQLConnTransaction) Exec(sqlStr string, args ...interface{}) (sql.Result, error) {
-	res,err := t.SQLTX.Exec(sqlStr, args...)
-	if err!=nil {
+	res, err := t.SQLTX.Exec(sqlStr, args...)
+	if err != nil {
 		t.Loger.Printf("t exec err: %v", err)
 	}
 	return res, err

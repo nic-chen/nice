@@ -55,7 +55,7 @@ const (
 type Context struct {
 	Req        *http.Request
 	Resp       *Response
-	nice        *Nice
+	nice       *Nice
 	store      map[string]interface{}
 	storeMutex sync.RWMutex  // store rw lock
 	routeName  string        // route name
@@ -63,9 +63,8 @@ type Context struct {
 	pValues    []string      // route params values
 	handlers   []HandlerFunc // middleware handler and route match handler
 	hi         int           // handlers execute position
-	uid        int            //login member id
+	uid        int           //login member id
 }
-
 
 // NewContext create a http context
 func NewContext(w http.ResponseWriter, r *http.Request, n *Nice) *Context {
@@ -705,12 +704,11 @@ func (c *Context) DI(name string) interface{} {
 }
 
 // Set uid in context
-func (c *Context) SetUid(v int) {
+func (c *Context) SetUid(v uint32) {
 	c.uid = v
 }
 
 // Get uid from context
-func (c *Context) GetUid() int {
+func (c *Context) GetUid() uint32 {
 	return c.uid
 }
-
