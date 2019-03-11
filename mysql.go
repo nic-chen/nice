@@ -66,8 +66,6 @@ func (p *Mysql) Connect(node MysqlNode, database, charset, MaxLifetime string) (
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&autocommit=true", node.User, node.Password, node.Host, database, charset)
 
-	p.Loger.Println("dsn: %s", dsn)
-
 	conn, err := sql.Open(p.DriverName, dsn)
 	if err != nil {
 		return nil, err
