@@ -18,8 +18,8 @@ type Redis struct {
 
 type RedisCnf struct {
 	//map类型
-	Master NodeServer `yaml:"master"`
-	Slave  NodeServer `yaml:"slave"`
+	Master RedisNode `yaml:"master"`
+	Slave  RedisNode `yaml:"slave"`
 }
 
 type RedisNode struct {
