@@ -383,15 +383,10 @@ func LoadConfig(yamlfile string) map[string]interface{} {
 		log.Panicln("Read db config file failed.", err.Error())
 	}
 
-	log.Printf("c:%v", string(yamlFile))
-
 	err = yaml.Unmarshal(yamlFile, conf)
-
 	if err != nil {
 		log.Panicln("Parse db config file failed.", err.Error())
 	}
-
-	log.Printf("conf:%v", conf)
 
 	return conf
 }
