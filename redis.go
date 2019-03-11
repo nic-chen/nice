@@ -22,7 +22,7 @@ type RedisCnf struct {
 	Slave  NodeServer `yaml:"slave"`
 }
 
-type NodeServer struct {
+type RedisNode struct {
 	Host     string `yaml: "host"`
 	Password string `yaml: "password"`
 	Db       int    `yaml: "db"`

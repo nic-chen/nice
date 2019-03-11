@@ -22,14 +22,14 @@ type Mysql struct {
 
 type MysqlConf struct {
 	//map类型
-	Master      NodeServer   `yaml: "master"`
-	Slave       []NodeServer `yaml: "slaves"`
-	Database    string       `yaml: "database"`
-	Charset     string       `yaml: "charset"`
-	MaxLifetime string       `yaml: "maxlifetime"`
+	Master      MysqlNode   `yaml: "master"`
+	Slave       []MysqlNode `yaml: "slaves"`
+	Database    string      `yaml: "database"`
+	Charset     string      `yaml: "charset"`
+	MaxLifetime string      `yaml: "maxlifetime"`
 }
 
-type NodeServer struct {
+type MysqlNode struct {
 	Host     string `yaml: "host"`
 	User     string `yaml: "user"`
 	Password string `yaml: "password"`
@@ -62,7 +62,7 @@ func NewMysql(config interface{}) *Mysql {
 	return p
 }
 
-func (p *Mysql) Connect(node NodeServer, database, charset, MaxLifetime string) (*sql.DB, error) {
+func (p *Mysql) Connect(node MysqlNode, database, charset, MaxLifetime string) (*sql.DB, error) {
 	var err error
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&autocommit=true", node.User, node.Password, node.Host, database, charset)
