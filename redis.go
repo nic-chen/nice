@@ -1,29 +1,43 @@
 package nice
 
 import (
+	redislib "github.com/gomodule/redigo/redis"
 	"log"
 	"time"
-	redislib "github.com/gomodule/redigo/redis"
 )
 
 // redis is RDS struct
 type Redis struct {
-	host string
+	host     string
 	password string
 	database int
-	idle int
-	active int
-	pool *redislib.Pool
+	idle     int
+	active   int
+	pool     *redislib.Pool
+}
+
+type RedisCnf struct {
+	//map类型
+	Master NodeServer `yaml:"master"`
+	Slave  NodeServer `yaml:"slave"`
+}
+
+type NodeServer struct {
+	Host     string `yaml: "host"`
+	Password string `yaml: "password"`
+	Db       int    `yaml: "db"`
+	Open     int    `yaml: "open"`
+	Idle     int    `yaml: "idle"`
 }
 
 func NewRedis(host, password string, database, MaxActive, maxIdleConns int) *Redis {
 	r := &Redis{
-		host: host,
+		host:     host,
 		password: password,
 		database: database,
-		idle: maxIdleConns,
-		active: MaxActive,
-	};
+		idle:     maxIdleConns,
+		active:   MaxActive,
+	}
 	r.Open()
 	if _, err := r.Do("PING"); err != nil {
 		log.Panicln("Init redis pool failed.", err.Error())
@@ -31,7 +45,7 @@ func NewRedis(host, password string, database, MaxActive, maxIdleConns int) *Red
 	return r
 }
 
-func (r *Redis) Open(){
+func (r *Redis) Open() {
 	r.pool = &redislib.Pool{
 		MaxActive:   r.active, // max number of connections
 		MaxIdle:     r.idle,
@@ -57,7 +71,7 @@ func (r *Redis) Open(){
 			_, err := c.Do("PING")
 			return err
 		},
-	};
+	}
 }
 
 // Close pool

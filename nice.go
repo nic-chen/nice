@@ -2,6 +2,8 @@ package nice
 
 import (
 	"errors"
+	"gopkg.in/yaml.v2"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -370,6 +372,28 @@ func (n *Nice) DefaultNotFoundHandler(c *Context) {
 // URLFor use named route return format url
 func (n *Nice) URLFor(name string, args ...interface{}) string {
 	return n.Router().URLFor(name, args...)
+}
+
+//加载配置 绝对路径
+func (n *Nice) LoadConfig(yamlfile string) map[string]interface{} {
+	conf := make(map[string]interface{})
+
+	yamlFile, err := ioutil.ReadFile(yamlfile)
+	if err != nil {
+		p.Loger.Panicln("Read db config file failed.", err.Error())
+	}
+
+	p.Loger.Printf("c:%v", string(yamlFile))
+
+	err = yaml.Unmarshal(yamlFile, conf)
+
+	if err != nil {
+		p.Loger.Panicln("Parse db config file failed.", err.Error())
+	}
+
+	p.Loger.Printf("conf:%v", conf)
+
+	return conf
 }
 
 // wrapMiddleware wraps middleware.
