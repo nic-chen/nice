@@ -33,7 +33,7 @@ type RedisNode struct {
 
 func NewRedis(config interface{}) *Redis {
 
-	conf := MysqlConf{}
+	conf := RedisNode{}
 	err = mapstructure.Decode(config.(map[interface{}]interface{}), &conf)
 
 	r := &Redis{
