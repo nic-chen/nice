@@ -34,7 +34,7 @@ type RedisNode struct {
 func NewRedis(config interface{}) *Redis {
 
 	conf := RedisNode{}
-	err = mapstructure.Decode(config.(map[interface{}]interface{}), &conf)
+	err := mapstructure.Decode(config.(map[interface{}]interface{}), &conf)
 
 	r := &Redis{
 		host:     conf.Host,
@@ -44,7 +44,7 @@ func NewRedis(config interface{}) *Redis {
 		active:   conf.MaxIdle,
 	}
 	r.Open()
-	if _, err := r.Do("PING"); err != nil {
+	if _, err = r.Do("PING"); err != nil {
 		log.Panicln("Init redis pool failed.", err.Error())
 	}
 	return r
