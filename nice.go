@@ -375,7 +375,7 @@ func (n *Nice) URLFor(name string, args ...interface{}) string {
 }
 
 //加载配置 绝对路径
-func (n *Nice) LoadConfig(yamlfile string) map[string]interface{} {
+func LoadConfig(yamlfile string) map[string]interface{} {
 	conf := make(map[string]interface{})
 
 	yamlFile, err := ioutil.ReadFile(yamlfile)
