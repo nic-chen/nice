@@ -47,7 +47,7 @@ func NewMysql(config interface{}) *Mysql {
 
 	p.Loger.Printf("mysql config:%v", config)
 	conf := MysqlConf{}
-	err = mapstructure.Decode(config.(map[string]interface{}), &conf)
+	err = mapstructure.Decode(config.(map[interface{}]interface{}), &conf)
 
 	p.Master, err = p.Connect(conf.Master, conf.Database, conf.Charset, conf.MaxLifetime)
 	if err != nil {

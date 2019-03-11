@@ -380,18 +380,18 @@ func (n *Nice) LoadConfig(yamlfile string) map[string]interface{} {
 
 	yamlFile, err := ioutil.ReadFile(yamlfile)
 	if err != nil {
-		p.Loger.Panicln("Read db config file failed.", err.Error())
+		log.Panicln("Read db config file failed.", err.Error())
 	}
 
-	p.Loger.Printf("c:%v", string(yamlFile))
+	log.Printf("c:%v", string(yamlFile))
 
 	err = yaml.Unmarshal(yamlFile, conf)
 
 	if err != nil {
-		p.Loger.Panicln("Parse db config file failed.", err.Error())
+		log.Panicln("Parse db config file failed.", err.Error())
 	}
 
-	p.Loger.Printf("conf:%v", conf)
+	log.Printf("conf:%v", conf)
 
 	return conf
 }
