@@ -27,6 +27,7 @@ var Env string
 type Nice struct {
 	debug           bool
 	name            string
+	Conf            map[string]interface{}
 	di              DIer
 	router          Router
 	pool            sync.Pool
