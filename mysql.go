@@ -22,11 +22,11 @@ type Mysql struct {
 
 type MysqlConf struct {
 	//map类型
-	Master      MysqlNode   `yaml: "master"`
-	Slave       []MysqlNode `yaml: "slaves"`
-	Database    string      `yaml: "database"`
-	Charset     string      `yaml: "charset"`
-	MaxLifetime string      `yaml: "maxlifetime"`
+	Master      MysqlNode `yaml: "master"`
+	Slave       MysqlNode `yaml: "slave"`
+	Database    string    `yaml: "database"`
+	Charset     string    `yaml: "charset"`
+	MaxLifetime string    `yaml: "maxlifetime"`
 }
 
 type MysqlNode struct {
@@ -53,10 +53,14 @@ func NewMysql(config interface{}) *Mysql {
 		p.Loger.Panicln("Init mysql master pool failed.", err.Error())
 	}
 
-	// p.Slave, err = p.Connect(conf.Slave, conf.Database, conf.Charset, conf.MaxLifetime)
-	// if err != nil {
-	// 	return nil
-	// }
+	if conf.Slave.Host != "" {
+		p.Slave, err = p.Connect(conf.Slave, conf.Database, conf.Charset, conf.MaxLifetime)
+		if err != nil {
+			return nil
+		}
+	} else {
+		p.Slave = p.Master
+	}
 
 	return p
 }
@@ -86,6 +90,7 @@ func (p *Mysql) Connect(node MysqlNode, database, charset, MaxLifetime string) (
 
 // Close pool
 func (p *Mysql) Close() error {
+	p.Slave.Close()
 	return p.Master.Close()
 }
 
@@ -106,7 +111,7 @@ func (p *Mysql) Get(queryStr string, args ...interface{}) (map[string]interface{
 
 // Query via pool
 func (p *Mysql) Query(sqlStr string, args ...interface{}) ([]map[string]interface{}, error) {
-	rows, err := p.Master.Query(sqlStr, args...)
+	rows, err := p.Slave.Query(sqlStr, args...)
 	if err != nil {
 		p.Loger.Printf("query err: %v sql: %s", err, sqlStr)
 		return []map[string]interface{}{}, err
@@ -136,7 +141,7 @@ func (p *Mysql) Query(sqlStr string, args ...interface{}) ([]map[string]interfac
 
 // QueryRow via pool
 func (p *Mysql) QueryRow(sqlStr string, args ...interface{}) *sql.Row {
-	return p.Master.QueryRow(sqlStr, args...)
+	return p.Slave.QueryRow(sqlStr, args...)
 }
 
 func (p *Mysql) Exec(sqlStr string, args ...interface{}) (sql.Result, error) {
