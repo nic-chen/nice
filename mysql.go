@@ -108,7 +108,7 @@ func (p *Mysql) Get(queryStr string, args ...interface{}) (map[string]interface{
 func (p *Mysql) Query(sqlStr string, args ...interface{}) ([]map[string]interface{}, error) {
 	rows, err := p.Master.Query(sqlStr, args...)
 	if err != nil {
-		p.Loger.Printf("query err: %v", err)
+		p.Loger.Printf("query err: %v sql: %s", err, sqlStr)
 		return []map[string]interface{}{}, err
 	}
 	defer rows.Close()
@@ -142,7 +142,7 @@ func (p *Mysql) QueryRow(sqlStr string, args ...interface{}) *sql.Row {
 func (p *Mysql) Exec(sqlStr string, args ...interface{}) (sql.Result, error) {
 	res, err := p.Master.Exec(sqlStr, args...)
 	if err != nil {
-		p.Loger.Printf("exec err: %v", err)
+		p.Loger.Printf("exec err: %v sql: %s", err, sqlStr)
 	}
 	return res, err
 }
