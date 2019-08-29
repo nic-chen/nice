@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"go.etcd.io/etcd/clientv3"
 	"github.com/coreos/etcd/mvcc/mvccpb" // "go.etcd.io/etcd/mvcc/mvccpb" 用这个会出现miss match
+	"go.etcd.io/etcd/clientv3"
 	"google.golang.org/grpc/naming"
 )
 

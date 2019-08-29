@@ -1,23 +1,23 @@
 package etcdv3
 
 import (
-	"net"
-	"fmt"
 	"context"
+	"fmt"
+	"net"
 	"strings"
 
-	"go.etcd.io/etcd/clientv3"
 	"github.com/nic-chen/nice/micro/registry"
+	"go.etcd.io/etcd/clientv3"
 )
+
 // Prefix should start and end with no slash
 var Prefix = "nice://"
 var Deregister = make(chan struct{})
 
-
 type etcdv3Registry struct {
-	client *clientv3.Client
+	client  *clientv3.Client
 	options *registry.Options
-	leases map[string]clientv3.LeaseID
+	leases  map[string]clientv3.LeaseID
 }
 
 func NewRegistry(options *registry.Options) (r registry.Registry, err error) {
@@ -30,7 +30,7 @@ func NewRegistry(options *registry.Options) (r registry.Registry, err error) {
 	}
 
 	r = &etcdv3Registry{
-		client: cli,
+		client:  cli,
 		options: options,
 	}
 
@@ -74,5 +74,3 @@ func (t *etcdv3Registry) UnRegister() {
 	Deregister <- struct{}{}
 	<-Deregister
 }
-
-
