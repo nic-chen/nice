@@ -14,7 +14,7 @@ type Response struct {
 	status      int   // status code passed to WriteHeader
 	resp        http.ResponseWriter
 	writer      io.Writer
-	nice         *Nice
+	nice        *Nice
 }
 
 // NewResponse ...

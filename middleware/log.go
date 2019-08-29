@@ -14,6 +14,6 @@ func Logger() nice.HandlerFunc {
 
 		c.Next()
 
-		c.Nice().Logger().Printf("%s %s %s %v %v", c.RemoteAddr(), c.Req.Method, c.URL(false),  c.Resp.Status(), time.Since(start))
+		c.Nice().Logger().Printf("%s %s %s %v %v", c.RemoteAddr(), c.Req.Method, c.URL(false), c.Resp.Status(), time.Since(start))
 	}
 }

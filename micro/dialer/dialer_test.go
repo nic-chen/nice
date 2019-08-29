@@ -1,8 +1,8 @@
 package dialer_test
 
 import (
-	"github.com/opentracing/opentracing-go"
 	"github.com/nic-chen/nice/micro/dialer"
+	"github.com/opentracing/opentracing-go"
 	"google.golang.org/grpc"
 	"strings"
 	"testing"

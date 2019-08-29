@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
-	"github.com/opentracing/opentracing-go"
 	"github.com/nic-chen/nice/micro/tracing"
+	"github.com/opentracing/opentracing-go"
 	"google.golang.org/grpc"
 )
 

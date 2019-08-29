@@ -3,8 +3,8 @@ package micro
 import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
-	"github.com/opentracing/opentracing-go"
 	"github.com/nic-chen/nice/micro/registry"
+	"github.com/opentracing/opentracing-go"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"log"

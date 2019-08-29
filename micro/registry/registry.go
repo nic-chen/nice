@@ -15,4 +15,3 @@ type Registry interface {
 }
 
 var DefaultRegistry func(*Options) (Registry, error)
-

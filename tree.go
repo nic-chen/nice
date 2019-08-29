@@ -18,7 +18,7 @@ type Tree struct {
 	mu                sync.RWMutex
 	groups            []*group
 	nodes             [RouteLength]*leaf
-	nice               *Nice
+	nice              *Nice
 	nameNodes         map[string]*Node
 }
 
